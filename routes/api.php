@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('products',function(){
+    return 'Post Products';
+});
+
+Route::get('products',function(){
+    return 'Get Products';
+});
+
+Route::get('products/{id}',function($id){
+    return 'Get Products '. $id;
+});
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
