@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('products',function(){
-    return 'Post Products';
-});
+Route::post('products',[ProductController::class,'postProducts']);
 
-Route::get('products',function(){
-    return 'Get Products';
-});
+Route::get('products',[ProductController::class,'getProducts']);
 
-Route::get('products/{id}',function($id){
-    return 'Get Products '. $id;
-});
+Route::get('products/{id}',[ProductController::class,'getProductById']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
