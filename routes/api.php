@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,14 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+// Authentication APIs
+Route::post("register",[AuthController::class, 'register']);
+Route::post("login",[AuthController::class, 'login']);
+
+
+// Product
 Route::post('products',[ProductController::class,'postProducts']);
-
 Route::get('products',[ProductController::class,'getProducts']);
-
 Route::get('products/{id}',[ProductController::class,'getProductById']);
 
 
