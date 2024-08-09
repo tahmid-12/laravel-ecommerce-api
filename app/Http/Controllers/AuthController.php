@@ -43,7 +43,36 @@ class AuthController extends Controller
     }
     
     // Log In Function
-    public function login(){
-        return "Log IN";
+    public function login(Request $request){
+
+        $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+
+        $user = User::where("email",$request->email)->first();
+
+        if(!empty($user)){
+            if(Hash::check($request->password, $user->password)){
+
+                $token = $user->createToken('auth_token')->plainTextToken;
+
+                return response()->json([
+                    "status" => "201",
+                    "message" => "User Log In Successful",
+                    "token" => $token
+                ],201);
+            }
+
+            return response()->json([
+                "status" => "401",
+                "message" => "Password didn't match"
+            ],401);
+        }
+
+        return response()->json([
+            "status" => "400",
+            "message" => "Invalid Log In Credentials"
+        ],400);
     }
 }
