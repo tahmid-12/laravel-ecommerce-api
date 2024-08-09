@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    //Register Function
     public function register(Request $request){
 
         if (!$request->isMethod('post')) {
@@ -25,24 +24,18 @@ class AuthController extends Controller
             "password" => "required|confirmed"
         ]);
 
-        //Save Data
         $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password)
         ]);
 
-        // Generate Token
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
             "status" => "201",
             "message" => "User Created Successfully",
-            "token" => $token
         ], 201);
     }
     
-    // Log In Function
     public function login(Request $request){
 
         $request->validate([
@@ -74,5 +67,16 @@ class AuthController extends Controller
             "status" => "400",
             "message" => "Invalid Log In Credentials"
         ],400);
+    }
+
+    public function profile(){
+
+        $data = auth()->user();
+
+        return response()->json([
+            "status" => "201",
+            "message" => "USer fetched successfully",
+            "data" => $data
+        ]);
     }
 }
