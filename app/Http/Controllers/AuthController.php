@@ -77,6 +77,17 @@ class AuthController extends Controller
             "status" => "201",
             "message" => "USer fetched successfully",
             "data" => $data
-        ]);
+        ], 201);
+    }
+
+    public function logout(){
+
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            "status" => "201",
+            "message" => "User Logged Out",
+        ], 201);
+
     }
 }
