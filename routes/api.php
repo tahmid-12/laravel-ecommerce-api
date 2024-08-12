@@ -22,12 +22,15 @@ Route::post("login",[AuthController::class, 'login']);
 
 
 Route::group(["middleware" => ["auth:sanctum"]], function(){
+    
     Route::get("profile",[AuthController::class, 'profile']);
     Route::post("logout",[AuthController::class, 'logout']);
+
+    Route::post('products',[ProductController::class,'postProducts']);
 });
 
 // Product
-Route::post('products',[ProductController::class,'postProducts']);
+
 Route::get('products',[ProductController::class,'getProducts']);
 Route::get('products/{id}',[ProductController::class,'getProductById']);
 

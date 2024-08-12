@@ -10,6 +10,8 @@ use App\Models\Images;
 class Products extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'description', 'price', 'user_id'];
     
     public function user()
     {
@@ -18,6 +20,6 @@ class Products extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Images::class);
     }
 }
