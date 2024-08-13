@@ -57,8 +57,20 @@ class ProductController extends Controller
     }
 
 
-    public function getProducts(){
-        return 'Get all Products from Product Controller';
+    public function getAllProducts(){
+        try {
+            $products = Products::with('images')->paginate(10);
+    
+            return response()->json([
+                'status' => '200',
+                'message' => 'Products retrieved successfully!',
+                'products' => $products
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while retrieving products: ' . $e->getMessage()
+            ], 400);
+        }
     }
 
     public function getProductById($id){
