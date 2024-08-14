@@ -32,7 +32,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function(){
 // Product
 
 Route::get('products',[ProductController::class,'getAllProducts']);
-Route::get('products/{id}',[ProductController::class,'getProductById']);
+Route::get('products/name', [ProductController::class, 'getProductByName']);
 
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
