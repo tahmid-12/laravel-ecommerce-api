@@ -85,10 +85,10 @@ class ProductController extends Controller
 
             $product = Products::with('images')->where('name', 'like', '%' . $name . '%')->get();
 
-            if ($product->isEmpty()) {
+            if ($product->isEmpty() || $product == null){
                 return response()->json([
                     'status' => '404',
-                    'message' => 'No product found with the specified name.'
+                    'message' => 'Please enter a valid Name.'
                 ], 404);
             }
 
