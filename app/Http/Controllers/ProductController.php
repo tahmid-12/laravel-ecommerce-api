@@ -73,7 +73,34 @@ class ProductController extends Controller
         }
     }
 
-    public function getProductById($id){
-        return 'Get Products '. $id;
+    public function getProductByName(Request $request)
+    {
+        try {
+            
+            $request->validate([
+                'name' => 'required|string',
+            ]);
+
+            $name = $request->input('name');
+
+            $product = Products::with('images')->where('name', 'like', '%' . $name . '%')->get();
+
+            if ($product->isEmpty() || $product == null){
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Please enter a valid Name.'
+                ], 404);
+            }
+
+            return response()->json([
+                'status' => '200',
+                'message' => 'Product retrieved successfully!',
+                'product' => $product
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while retrieving the product: ' . $e->getMessage()
+            ], 400);
+        }
     }
 }
